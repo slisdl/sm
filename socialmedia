@@ -1,0 +1,43 @@
+class Post:
+    def __init__(self, id, content, author):
+        self.id = id
+        self.content = content
+        self.author = author
+        self.likes = 0
+        self.dislikes = 0
+
+    def like(self):
+        self.likes += 1
+
+    def dislike(self):
+        self.dislikes += 1
+
+    def get_rating(self):
+        return self.likes - self.dislikes
+
+    def __repr__(self):
+        return f"Post(id={self.id}, content={self.content}, author={self.author}, likes={self.likes}, dislikes={self.dislikes}, rating={self.get_rating()})"
+class User:
+    def __init__(self, username):
+        self.username = username
+        self.posts = []
+
+    def create_post(self, post_id, content):
+        post = Post(post_id, content, self.username)
+        self.posts.append(post)
+        return post
+
+    def __repr__(self):
+        return f"User(username={self.username}, posts={self.posts})"
+class SocialNetwork:
+    def __init__(self):
+        self.posts = []
+
+    def add_post(self, post):
+        self.posts.append(post)
+
+    def get_sorted_posts(self):
+        return sorted(self.posts, key=lambda post: post.get_rating(), reverse=True)
+
+    def __repr__(self):
+        return f"SocialNetwork(posts={self.posts})"
